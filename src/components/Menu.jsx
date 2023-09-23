@@ -1,9 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { useGetMenuItemsQuery } from '../redux/reducers/apiSlice';
+import Loading from './Loading';
+import MenuItem from './MenuItem';
 
 const Menu = () => {
-  return (
-    <div>Menu</div>
-  )
-}
+    const { data: menuItems, isLoading } = useGetMenuItemsQuery();
 
-export default Menu
+    return (
+        <div>
+            {!isLoading ? (
+                menuItems.data.map((pizza) => (
+                    <MenuItem pizza={pizza} key={pizza.id} />
+                ))
+            ) : (
+                <Loading />
+            )}
+        </div>
+    );
+};
+
+export default Menu;
