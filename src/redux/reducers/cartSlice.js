@@ -20,6 +20,11 @@ const cartSlice = createSlice({
   },
 });
 
+export const getCartItems = (state) => state.cart.cartItems;
+
+export const getQtyById = (state, itemId) =>
+  state.cart.cartItems.find((item) => item.id === itemId)?.qty || 0;
+
 export const { addToCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
