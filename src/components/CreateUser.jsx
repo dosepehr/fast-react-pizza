@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUsername } from "../redux/reducers/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateUser = () => {
   const [name, setName] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleUserName = () => {
     dispatch(addUsername(name));
+    navigate("/menu");
   };
   return (
     <div className="flex flex-col items-center">
