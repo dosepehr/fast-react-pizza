@@ -16,7 +16,9 @@ const MainLayout = () => {
     <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       <Header />
       <div className="overflow-scroll">
-        <Outlet />
+        <div className="mx-auto max-w-3xl ">
+          <Outlet />
+        </div>
       </div>
       <CartOverview />
     </div>

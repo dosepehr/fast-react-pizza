@@ -7,8 +7,9 @@ import Button from "./Button";
 const Cart = () => {
   const cartItems = useSelector((state) => getCartItems(state));
   const username = useSelector((state) => state.user.name);
+
   return (
-    <div className="mx-auto max-w-3xl px-4 py-3">
+    <div className="px-4 py-3">
       <Link
         to="/menu"
         className="text-sm text-blue-500 hover:text-blue-600 hover:underline"

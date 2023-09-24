@@ -7,7 +7,7 @@ const Menu = () => {
   const { data: menuItems, isLoading } = useGetMenuItemsQuery();
 
   return (
-    <ul className="mx-auto mt-5 max-w-3xl divide-y divide-stone-200 px-1 sm:px-10">
+    <ul className="divide-y divide-stone-200 px-1 sm:px-10">
       {!isLoading ? (
         menuItems.data.map((pizza) => <MenuItem pizza={pizza} key={pizza.id} />)
       ) : (
