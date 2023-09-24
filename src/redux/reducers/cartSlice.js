@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -17,6 +17,13 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    updateQty(state, action) {
+      const updatedItem = state.cartItems.find(
+        (item) => item.id === action.payload.id,
+      );
+      updatedItem.qty = updatedItem.qty + action.payload.changedAmount;
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
@@ -25,6 +32,6 @@ export const getCartItems = (state) => state.cart.cartItems;
 export const getQtyById = (state, itemId) =>
   state.cart.cartItems.find((item) => item.id === itemId)?.qty || 0;
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, updateQty } = cartSlice.actions;
 
 export default cartSlice.reducer;
