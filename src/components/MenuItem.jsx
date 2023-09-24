@@ -3,6 +3,7 @@ import { formatCurrency } from "../helpers/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, getQtyById } from "../redux/reducers/cartSlice";
 import ItemQty from "./itemQty";
+import Button from "./Button";
 const MenuItem = ({ pizza }) => {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   const dispatch = useDispatch();
@@ -37,12 +38,9 @@ const MenuItem = ({ pizza }) => {
           </div>
           {!soldOut &&
             (!currentQty > 0 ? (
-              <button
-                onClick={handleAddToCart}
-                className="rounded-full bg-yellow-400 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 outline-none duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:ring focus:ring-yellow-300 focus:ring-offset-2"
-              >
+              <Button onClick={handleAddToCart} type="small">
                 add to cart
-              </button>
+              </Button>
             ) : (
               <ItemQty id={id} currentQty={currentQty} />
             ))}

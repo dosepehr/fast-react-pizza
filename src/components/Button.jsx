@@ -8,9 +8,9 @@ const Button = ({ children, type, onClick }) => {
   };
 
   return (
-    <div className={styles[type]} onClick={onClick}>
+    <button className={styles[type]} onClick={onClick}>
       {children}
-    </div>
+    </button>
   );
 };
 
