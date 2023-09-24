@@ -3,6 +3,7 @@ import Header from "./Header";
 import { Outlet, useNavigate } from "react-router-dom";
 import { selectUserName } from "../redux/reducers/userSlice";
 import { useEffect } from "react";
+import CartOverview from "./CartOverview";
 const MainLayout = () => {
   const username = useSelector((state) => selectUserName(state));
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const MainLayout = () => {
       <div className="overflow-scroll">
         <Outlet />
       </div>
+      <CartOverview />
     </div>
   );
 };
