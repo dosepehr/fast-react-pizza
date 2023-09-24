@@ -12,9 +12,11 @@ const MainLayout = () => {
     }
   }, [navigate, username]);
   return (
-    <div>
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       <Header />
-      <Outlet />
+      <div className="overflow-scroll">
+        <Outlet />
+      </div>
     </div>
   );
 };
