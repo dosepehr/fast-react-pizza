@@ -3,14 +3,19 @@ import { selectUserName } from "../redux/reducers/userSlice";
 import Button from "./Button";
 import { useEffect } from "react";
 import { formatCurrency } from "../helpers/formatCurrency";
-import { getTotalAmount } from "../redux/reducers/cartSlice";
+import { getCartItems, getTotalAmount } from "../redux/reducers/cartSlice";
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import userSchema from "../validation/userSchema";
 import { fetchAddress } from "../redux/reducers/userSlice";
 const CreateOrder = () => {
-  const { address, status, error } = useSelector((state) => state.user);
-
+  const { address, status, error, position } = useSelector(
+    (state) => state.user,
+  );
+  const cart = useSelector((state) => getCartItems(state));
+  /**
+cart: [{…}]
+ */
   const isLoadingAddress = status === "loading";
   const dispatch = useDispatch();
   const [priority, setPriority] = useState(false);
@@ -28,7 +33,16 @@ const CreateOrder = () => {
     if (!userAddress.length) {
       setAddressErr(true);
     } else {
-      console.log({ ...values, userAddress });
+      console.log({
+        ...values,
+        address: userAddress,
+        position:
+          position.longitude && position.latitude
+            ? `${position.latitude},${position.longitude}`
+            : "",
+        priority,
+        cart,
+      });
     }
   };
   const handleChangeAddress = (e) => {
@@ -38,7 +52,7 @@ const CreateOrder = () => {
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
       <Formik
-        initialValues={{ username, mobile: "" }}
+        initialValues={{ customer: username, phone: "" }}
         validationSchema={userSchema}
         onSubmit={(values) => handleCreateOrder(values)}
       >
@@ -46,8 +60,8 @@ const CreateOrder = () => {
           <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
             <label className="sm:basis-40">First Name</label>
             <div className="grow">
-              <Field className="input w-full" type="text" name="username" />
-              <ErrorMessage name="username">
+              <Field className="input w-full" type="text" name="customer" />
+              <ErrorMessage name="customer">
                 {(msg) => (
                   <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                     {msg}
@@ -60,8 +74,8 @@ const CreateOrder = () => {
           <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
             <label className="sm:basis-40">Phone number</label>
             <div className="grow">
-              <Field className="input w-full" type="tel" name="mobile" />
-              <ErrorMessage name="mobile">
+              <Field className="input w-full" type="tel" name="phone" />
+              <ErrorMessage name="phone">
                 {(msg) => (
                   <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                     {msg}
@@ -79,6 +93,7 @@ const CreateOrder = () => {
                 type="text"
                 name="address"
                 value={userAddress}
+                disabled={isLoadingAddress}
                 onChange={(e) => handleChangeAddress(e)}
               />
               {addressErr && (
