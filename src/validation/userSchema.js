@@ -10,7 +10,6 @@ const userSchema = yup.object().shape({
       "Please give us your correct phone number. We might need it to contact you",
     )
     .matches(phoneRegExp, "the given phone number is not correct"),
-  address: yup.string().required("please enter your address"),
 });
 
 export default userSchema;

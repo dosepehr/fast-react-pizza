@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const Button = ({ children, type, onClick, to }) => {
+const Button = ({ children, type, onClick, to, disabled = false }) => {
   const base =
     "inline-block text-sm rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed";
   const styles = {
@@ -17,7 +17,7 @@ const Button = ({ children, type, onClick, to }) => {
     );
   }
   return (
-    <button className={styles[type]} onClick={onClick}>
+    <button className={styles[type]} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
