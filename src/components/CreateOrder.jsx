@@ -8,16 +8,18 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import userSchema from "../validation/userSchema";
 import { fetchAddress } from "../redux/reducers/userSlice";
+import { useCreateOrderMutation } from "../redux/reducers/apiSlice";
 const CreateOrder = () => {
+  const dispatch = useDispatch();
   const { address, status, error, position } = useSelector(
     (state) => state.user,
   );
   const cart = useSelector((state) => getCartItems(state));
+  const [createOrder] = useCreateOrderMutation();
   /**
 cart: [{…}]
  */
   const isLoadingAddress = status === "loading";
-  const dispatch = useDispatch();
   const [priority, setPriority] = useState(false);
   const [userAddress, setUserAddress] = useState("");
   const [addressErr, setAddressErr] = useState(false);
@@ -29,11 +31,11 @@ cart: [{…}]
   if (priority) {
     totalPrice = totalPrice * 1.2;
   }
-  const handleCreateOrder = (values) => {
+  const handleCreateOrder = async (values) => {
     if (!userAddress.length) {
       setAddressErr(true);
     } else {
-      console.log({
+      const orderData = {
         ...values,
         address: userAddress,
         position:
@@ -42,7 +44,12 @@ cart: [{…}]
             : "",
         priority,
         cart,
-      });
+      };
+      try {
+        await createOrder(orderData).unwrap();
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const handleChangeAddress = (e) => {
