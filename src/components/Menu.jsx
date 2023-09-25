@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetMenuItemsQuery } from "../redux/reducers/apiSlice";
-import Loading from "./Loading";
+import Loader from "./Loader";
 import MenuItem from "./MenuItem";
 
 const Menu = () => {
@@ -11,7 +11,7 @@ const Menu = () => {
       {!isLoading ? (
         menuItems.data.map((pizza) => <MenuItem pizza={pizza} key={pizza.id} />)
       ) : (
-        <Loading />
+        <Loader />
       )}
     </ul>
   );

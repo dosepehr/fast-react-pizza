@@ -15,7 +15,7 @@ const MainLayout = () => {
   return (
     <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       <Header />
-      <div className="overflow-scroll">
+      <div className="overflow-y-scroll">
         <div className="mx-auto max-w-3xl ">
           <Outlet />
         </div>
