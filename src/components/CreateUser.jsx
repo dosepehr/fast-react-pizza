@@ -31,7 +31,7 @@ const CreateUser = () => {
         onChange={(e) => setName(e.target.value)}
         type="text"
         placeholder="Your full name"
-        className="input my-6 w-72 rounded-full px-4 py-3 text-sm outline-none ring ring-stone-200 duration-300 focus:ring-yellow-500"
+        className="my-6 w-72 rounded-full px-4 py-3 text-sm outline-none ring ring-stone-200 duration-300 focus:ring-yellow-500"
       />
       {name && (
         <button className="rounded-full bg-yellow-400 px-3 py-3 text-sm font-semibold tracking-wide text-stone-800 outline-none duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:ring focus:ring-yellow-300 focus:ring-offset-2">

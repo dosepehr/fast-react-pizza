@@ -3,7 +3,7 @@ import CreateUser from "./CreateUser";
 
 const Home = () => {
   return (
-    <div className="text-center">
+    <div className="mt-8 text-center">
       <h1 className="mb-4 text-xl font-semibold md:text-3xl">
         The best pizza.
       </h1>
