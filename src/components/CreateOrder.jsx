@@ -3,10 +3,15 @@ import { selectUserName } from "../redux/reducers/userSlice";
 import Button from "./Button";
 import { formatCurrency } from "../helpers/formatCurrency";
 import { getTotalAmount } from "../redux/reducers/cartSlice";
+import { useState } from "react";
 
 const CreateOrder = () => {
+  const [priority, setPriority] = useState(false);
   const username = useSelector((state) => selectUserName(state));
-  const totalPrice = useSelector((state) => getTotalAmount(state));
+  let totalPrice = useSelector((state) => getTotalAmount(state));
+  if (priority) {
+    totalPrice = totalPrice * 1.2;
+  }
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
@@ -47,6 +52,7 @@ const CreateOrder = () => {
             type="checkbox"
             name="priority"
             id="priority"
+            onChange={(e) => setPriority(e.target.checked)}
           />
           <label htmlFor="priority" className="font-medium">
             Want to yo give your order priority?
